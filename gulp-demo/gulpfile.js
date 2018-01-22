@@ -12,22 +12,29 @@ const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 const  htmlreplace = require('gulp-html-replace');
 const  minifyHTML  = require('gulp-minify-html');
+const less = require('gulp-less');
+
 
 gulp.task('html-replace',function() {
   var opts = {comments:false,spare:false,quotes:true};
   return gulp.src('./app/*.html')
     .pipe(htmlreplace({
-        'css': 'css/all.min.css',
-        'js': 'js/all.min.js'
+        'css': './css/all.min.css',
+        'js': './js/index.min.js'
     }))  
     .pipe(minifyHTML(opts))
     .pipe(gulp.dest('./build/'));
 });
 
 gulp.task('concat', function() {
-  return gulp.src('./app/css/*.css')
+  return gulp.src('./app/css/*.less')
+      .pipe(less())
       .pipe(concat('all.css'))
       .pipe(gulp.dest('./build/css/'));
+});
+
+gulp.task('watch', function(){
+  gulp.watch('./style/less/*.less',['minify-css']);
 });
 /**
  * minify-css任务，
@@ -74,4 +81,4 @@ gulp.task('webserver', function() {
   }));
 });
 
-gulp.task('default', ['html-replace','minify-css','uglify', 'webserver']);
+gulp.task('default', ['html-replace','minify-css','watch','uglify', 'webserver']);
