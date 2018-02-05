@@ -1,1 +1,0 @@
-{"dependencies":[{"name":"./message","loc":{"line":3,"column":24}}],"generated":{"js":"\"use strict\";\n\nexports.__esModule = true;\nvar message_1 = require(\"./message\");\nconsole.log(message_1[\"default\"]);"},"hash":"25e0fe007b522cc57938f55e54aefbd1"}
